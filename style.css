@@ -34,8 +34,16 @@ button {
     cursor: pointer;
 }
 
+
 .images {
     position: relative;
+}
+
+.question {
+    color: #ffcc00; /* Cor do texto da pergunta */
+    font-size: 36px; /* Tamanho da fonte da pergunta */
+    margin-top: 150px; /* Espaçamento superior entre a pergunta e as opções */
+    margin-bottom: 150px; /* Espaçamento inferior entre a pergunta e as opções */
 }
 
 img {
