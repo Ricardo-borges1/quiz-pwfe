@@ -52,7 +52,7 @@ img {
     position: absolute;
 }
 
-.cerebro {
+.emoji {
     top: 200px;
     right: 0;
 }
@@ -74,6 +74,11 @@ img {
 .feedback {
     font-size: 24px;
     margin-top: 20px;
+}
+
+.cerebro {
+    bottom: -500px;
+    left: 0;
 }
 
 
