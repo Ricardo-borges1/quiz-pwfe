@@ -13,12 +13,12 @@ body {
     margin-bottom: 20px;
 }
 
-.yellow-text {
+.titulo {
     color: #ffcc00;
     font-size: 50px;
 }
 
-.white-text {
+.mensagem {
     color: #ffffff;
     font-size: 40px;
     padding-top: 150px;
@@ -40,8 +40,8 @@ button {
 }
 
 .question {
-    color: #ffcc00; /* Cor do texto da pergunta */
-    font-size: 36px; /* Tamanho da fonte da pergunta */
+    color: #f7f6f6; /* Cor do texto da pergunta */
+    font-size: 30px; /* Tamanho da fonte da pergunta */
     margin-top: 150px; /* Espaçamento superior entre a pergunta e as opções */
     margin-bottom: 150px; /* Espaçamento inferior entre a pergunta e as opções */
 }
@@ -52,21 +52,28 @@ img {
     position: absolute;
 }
 
-.top-right {
-    top: 300px;
+.cerebro {
+    top: 200px;
     right: 0;
 }
 
-.bottom-right {
+.lupa {
     bottom: 150px;
     right: 0;
     
 }
 
-.bottom-left {
+.lampada {
     bottom: 90px;
     left: 0;
 }
 .startQuizButton{
     padding-top: 100px;
 }
+
+.feedback {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+

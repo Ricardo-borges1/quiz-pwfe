@@ -1,52 +1,87 @@
+// Função para iniciar o quiz
 function startQuiz() {
     fetch('https://opentdb.com/api.php?amount=5&type=multiple')
         .then(response => response.json())
         .then(data => {
-            // Manipular os dados recebidos da API (data) aqui
             const questions = data.results;
-            // Chame a função para mostrar as perguntas
-            questions.forEach(question => {
-                showQuestion(question);
-            });
+            let questionIndex = 0;
+            const usedQuestions = new Set();
+
+            // Função para mostrar uma pergunta
+            function showQuestion() {
+                const questionContainer = document.querySelector('.container');
+                questionContainer.innerHTML = ''; // Limpar o conteúdo anterior
+
+                // Escolher uma pergunta aleatória que não foi usada
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * questions.length);
+                } while (usedQuestions.has(randomIndex));
+                
+                const currentQuestion = questions[randomIndex];
+                usedQuestions.add(randomIndex);
+
+                // Mostrar a pergunta
+                const questionElement = document.createElement('div');
+                questionElement.classList.add('question');
+                questionElement.innerText = currentQuestion.question;
+                questionContainer.appendChild(questionElement);
+
+                // Mostrar opções de resposta
+                const options = [...currentQuestion.incorrect_answers, currentQuestion.correct_answer];
+                options.sort(() => Math.random() - 0.5); // Embaralhar as opções
+                options.forEach(option => {
+                    const optionElement = document.createElement('button');
+                    optionElement.classList.add('option');
+                    optionElement.innerText = option;
+                    optionElement.addEventListener('click', () => checkAnswer(option, currentQuestion.correct_answer));
+                    questionContainer.appendChild(optionElement);
+                });
+            }
+
+            // Restaurar o conjunto de perguntas usadas para o próximo jogo
+            function resetQuiz() {
+                usedQuestions.clear();
+            }
+
+            // Função para verificar a resposta
+            function checkAnswer(selectedAnswer, correctAnswer) {
+                const feedbackElement = document.createElement('div');
+                feedbackElement.classList.add('feedback');
+
+                if (selectedAnswer === correctAnswer) {
+                    feedbackElement.innerText = 'Boa!! Resposta correta!';
+                    feedbackElement.style.color = 'green';
+                } else {
+                    feedbackElement.innerText = 'Resposta incorreta. A próxima você acerta, não desista!';
+                    feedbackElement.style.color = 'red';
+                }
+
+                const questionContainer = document.querySelector('.container');
+                questionContainer.appendChild(feedbackElement);
+
+                // Passar para a próxima pergunta após um breve intervalo 
+                setTimeout(() => {
+                    // Verificar se ainda há perguntas
+                    if (questionIndex < questions.length - 1) {
+                        // Se houver mais perguntas, mostrar a próxima
+                        questionIndex++;
+                        showQuestion();
+                    } else {
+                        // Se todas as perguntas foram exibidas, mostrar uma mensagem de fim do quiz
+                        resetQuiz();
+                        questionContainer.innerHTML = 'Fim do Quiz. Obrigado por jogar!';
+                    }
+                }, 2000); // Mude para o valor desejado para controlar por quanto tempo a mensagem de feedback é exibida (em milissegundos)
+            }
+
+            // Mostrar a primeira pergunta ao iniciar o quiz
+            showQuestion();
         })
-        .catch(error => {
-            // Em caso de erro na chamada da API
-            console.error('Erro ao obter dados da API:', error);
-        });
+        
 }
 
-function showQuestion(question) {
-    const questionContainer = document.querySelector('.container');
-    // Mostrar a pergunta
-    const questionElement = document.createElement('div');
-    questionElement.classList.add('question');
-    questionElement.innerText = question.question;
-    questionContainer.appendChild(questionElement);
-
-    // Mostrar opções de resposta
-    const options = [...question.incorrect_answers, question.correct_answer];
-    options.sort(() => Math.random() - 0.5); // Embaralhar as opções
-    options.forEach(option => {
-        const optionElement = document.createElement('button');
-        optionElement.classList.add('option');
-        optionElement.innerText = option;
-        optionElement.addEventListener('click', () => checkAnswer(option, question.correct_answer));
-        questionContainer.appendChild(optionElement);
-    });
-}
-
-
-function checkAnswer(selectedAnswer, correctAnswer) {
-    if (selectedAnswer === correctAnswer) {
-        alert('Resposta correta!');
-        // Chame a função para mostrar a próxima pergunta
-        // showQuestion(nextQuestion);
-    } else {
-        alert('Resposta incorreta. Tente novamente!');
-    }
-}
-
-// Inicializar o quiz quando a página é carregada
+// Adicionar um event listener ao botão para iniciar o quiz
 document.addEventListener('DOMContentLoaded', () => {
     const startButton = document.getElementById('startQuizButton');
     startButton.addEventListener('click', startQuiz);
