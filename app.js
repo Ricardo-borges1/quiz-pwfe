@@ -1,3 +1,5 @@
+let pontuacao = 0;
+
 // Função para iniciar o quiz
 function startQuiz() {
     fetch('https://opentdb.com/api.php?amount=5&type=multiple')
@@ -10,14 +12,14 @@ function startQuiz() {
             // Função para mostrar uma pergunta
             function showQuestion() {
                 const mostrarPergunta = document.querySelector('.container');
-                mostrarPergunta.innerHTML = ''; 
+                mostrarPergunta.innerHTML = '';
 
                 // Escolher uma pergunta aleatória que não foi usada
                 let perguntaAleatoria;
                 do {
                     perguntaAleatoria = Math.floor(Math.random() * questoes.length);
                 } while (usedQuestions.has(perguntaAleatoria));
-                
+
                 const currentQuestion = questoes[perguntaAleatoria];
                 usedQuestions.add(perguntaAleatoria);
 
@@ -42,6 +44,7 @@ function startQuiz() {
             // Resetar as perguntas para o próximo jogo
             function resetQuiz() {
                 usedQuestions.clear();
+                pontuacao = 0;
             }
 
             // Função para verificar a resposta
@@ -52,6 +55,7 @@ function startQuiz() {
                 if (selecionarResposta === respostaCorreta) {
                     feedbackElement.innerText = 'Boa!! Resposta correta!';
                     feedbackElement.style.color = 'green';
+                    pontuacao += 1;
                 } else {
                     feedbackElement.innerText = 'Resposta incorreta. A próxima você acerta, não desista!';
                     feedbackElement.style.color = 'red';
@@ -67,17 +71,15 @@ function startQuiz() {
                         questionIndex++;
                         showQuestion();
                     } else {
-                         //mensagem de fim do quiz
+                        // Mensagem de fim do quiz
                         resetQuiz();
-                        questionContainer.innerHTML = 'Fim do Quiz. Obrigado por jogar!';
+                        questionContainer.innerHTML = `Fim do Quiz. Sua pontuação: ${pontuacao}`;
                     }
-                }, 2000); //quanto tempo a mensagem de feedback é exibida (em milissegundos)
+                }, 2000); // Quanto tempo a mensagem de feedback é exibida (em milissegundos)
             }
 
-            
             showQuestion();
-        })
-        
+        });
 }
 
 // Adicionar um event listener ao botão para iniciar o quiz
