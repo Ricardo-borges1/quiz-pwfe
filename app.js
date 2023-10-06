@@ -39,12 +39,12 @@ function startQuiz() {
                     optionElement.addEventListener('click', () => checarResposta(opcao, currentQuestion.correct_answer));
                     mostrarPergunta.appendChild(optionElement);
                 });
-            }
 
-            // Resetar as perguntas para o próximo jogo
-            function resetQuiz() {
-                usedQuestions.clear();
-                pontuacao = 0;
+                // Mostrar pontuação abaixo da pergunta
+                const pontuacaoElement = document.createElement('div');
+                pontuacaoElement.classList.add('pontuacao');
+                pontuacaoElement.innerHTML = `Pontuação: <span id="pontuacaoAtual">${pontuacao}</span>`;
+                mostrarPergunta.appendChild(pontuacaoElement);
             }
 
             // Função para verificar a resposta
@@ -55,7 +55,11 @@ function startQuiz() {
                 if (selecionarResposta === respostaCorreta) {
                     feedbackElement.innerText = 'Boa!! Resposta correta!';
                     feedbackElement.style.color = 'green';
+
+                    // Atualizar pontuação abaixo da pergunta
                     pontuacao += 1;
+                    const pontuacaoAtualElement = document.getElementById('pontuacaoAtual');
+                    pontuacaoAtualElement.innerText = pontuacao;
                 } else {
                     feedbackElement.innerText = 'Resposta incorreta. A próxima você acerta, não desista!';
                     feedbackElement.style.color = 'red';
@@ -72,18 +76,22 @@ function startQuiz() {
                         showQuestion();
                     } else {
                         // Mensagem de fim do quiz
-                        resetQuiz();
-                        questionContainer.innerHTML = `Fim do Quiz. Sua pontuação: ${pontuacao}`;
+                        mostrarResultadoFinal();
                     }
                 }, 2000); // Quanto tempo a mensagem de feedback é exibida (em milissegundos)
             }
 
-            showQuestion();
+            // Função para mostrar o resultado final
+            function mostrarResultadoFinal() {
+                const resultadoFinalElement = document.getElementById('resultadoFinal');
+                resultadoFinalElement.innerText = `Você acertou ${pontuacao} de ${questoes.length} perguntas!`;
+            }
+
+            // Adicionar um event listener ao botão para iniciar o quiz
+            const iniciarQuiz = document.getElementById('startQuizButton');
+            iniciarQuiz.addEventListener('click', showQuestion);
         });
 }
 
-// Adicionar um event listener ao botão para iniciar o quiz
-document.addEventListener('DOMContentLoaded', () => {
-    const iniciarQuiz = document.getElementById('startQuizButton');
-    iniciarQuiz.addEventListener('click', startQuiz);
-});
+// Adicionar um event listener ao carregar a página para iniciar o quiz
+document.addEventListener('DOMContentLoaded', startQuiz);
