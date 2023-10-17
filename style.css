@@ -1,3 +1,10 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -6,7 +13,8 @@ body {
 
 .container {
     text-align: center;
-    margin-top: 50px;
+    position: relative;
+    min-height: 100vh;
 }
 
 .header {
@@ -22,8 +30,6 @@ body {
     color: #ffffff;
     font-size: 40px;
     padding-top: 80px;
-
-
 }
 
 button {
@@ -35,24 +41,22 @@ button {
     margin-top: -10px;
 }
 
-.pontuacao{
-    color:#ffcc00;
+.pontuacao {
+    color: #ffcc00;
     font-size: 24px;
     margin-top: 40px;
 }
 
-
 .images {
     position: relative;
     z-index: -1;
-   
 }
 
 .questao {
-    color: #f7f6f6; 
-    font-size: 30px; 
-    margin-top: 150px; 
-    margin-bottom: 150px; 
+    color: #f7f6f6;
+    font-size: 30px;
+    margin-top: 150px;
+    margin-bottom: 150px;
 }
 
 img {
@@ -61,42 +65,58 @@ img {
     position: absolute;
 }
 
-.emoji {
-    top: 110px;
-    right: 0;
-    position: absolute;
-}
-
-.lupa {
-    bottom: 240px;
-    right: 0;
-    position: absolute;
-    width: 250px;
-    
+.cerebro,
+.lupa,
+.emoji,
+.lampada {
+    position: fixed;
 }
 
 .cerebro {
-    bottom: 200px;
+    bottom: 550px;
     left: 0;
-    position: absolute;
-};
-.startQuizButton{
-    padding-top: 100px;
 }
 
+.lupa {
+    bottom: 140px;
+    right: 0;
+    width: 250px;
+}
+
+.emoji {
+    top: 110px;
+    right: 0;
+}
 
 .lampada {
-    bottom: -400px;
+    bottom: 200px;
     display: flex;
     margin-left: 50px;
-    position: absolute;
-    
+}
+
+.startQuizButton {
+    padding-top: 100px;
 }
 
 .feedback {
     font-size: 24px;
     margin-top: 20px;
-};
+}
 
+.resultado-final {
+    color: #ffcc00;
+    font-size: 50px;
+    padding-top: 400px;
+}
 
-
+.tempo {
+    color: #ffcc00;
+    font-size: 25px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #570664;
+    padding: 10px 0;
+    text-align: center;
+}
