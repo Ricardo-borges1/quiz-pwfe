@@ -87,7 +87,7 @@ function finalizarQuiz() {
 }
 
 function mostrarResultadoFinal() {
-  mostrarPergunta.innerHTML = `<div class="resultado-final">Você acertou ${pontuacao} de ${questoes.length} perguntas em ${tempoPassado} segundos!</div>`
+  mostrarPergunta.innerHTML = `<div class="resultado-final"> QUIZ CONCLUÍDO <br> <br> <br>PARABÉNS!! <br> Você acertou ${pontuacao} de ${questoes.length} perguntas em ${tempoPassado} segundos!!  <br> <br> <br> Obrigado por jogar! </div>`
 }
 
 document.getElementById('startQuizButton').addEventListener('click', startQuiz)
