@@ -57,7 +57,7 @@ button {
     color: #f7f6f6;
     font-size: 30px;
     margin-top: 150px;
-    margin-bottom: 150px;
+    margin-bottom: 180px;
 }
 
 img {
@@ -120,6 +120,11 @@ img {
     background-color: #570664;
     padding: 10px 0;
     text-align: center;
+}
+
+.option{
+    margin-bottom: 40px;
+    gap: 50px;
 }
 
 
